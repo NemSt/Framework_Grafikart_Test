@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--Ensemble de règles que je souhaite que le code sniffer applique-->
+<ruleset name="MonFramework">
+    <description>Mes règles de formattage</description>
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <!--Ici, c'est pour préciser quel fichier doit être sniffé, donc ici c'est seulement src index qui sont nécessaires-->
+    <file>src</file>
+    <file>public/index.php</file>
+
+    <!--Les règles du PSR2 sont standardisées, mais il aurait été possible de définir des règles personnelles-->
+    <rule ref="PSR2"></rule>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"></rule>
+
+</ruleset>
