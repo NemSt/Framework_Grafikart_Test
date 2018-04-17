@@ -11,6 +11,4 @@
 
     <!--Les règles du PSR2 sont standardisées, mais il aurait été possible de définir des règles personnelles-->
     <rule ref="PSR2"></rule>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"></rule>
-
 </ruleset>

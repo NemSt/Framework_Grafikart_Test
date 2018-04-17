@@ -31,7 +31,7 @@ class Router
 
     /*/**
      * @param string $path
-     * @param callable $callable
+     * @param string/callable $callable
      * @param string $name
      */
     /*public function get(string $path, callable $callable, string $name){

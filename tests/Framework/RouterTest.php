@@ -3,7 +3,7 @@ namespace Tests\Framework;
 //use Framework\App;
 use Framework\Router;
 //use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\ServerRequest as Request;
+//use GuzzleHttp\Psr7\ServerRequest as Request;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 //use Aura\Router\RouterContainer;
@@ -68,7 +68,7 @@ class RouterTest extends TestCase {
             function() { return 'hello'; },
             'post.show',
             ['slug' => '[a-z\-0-9]+', 'id' => '[0-9]+']);
-        $uri = $this->router->generateUri('post.show', ['slug' => 'mon-article', 'id' => '18']);
+        $uri = $this->router->generateUri('post.show', ['slug' => 'mon-article', 'id' => 18]);
         $this->assertEquals('/blog/mon-article-18', $uri);
     }
 }
