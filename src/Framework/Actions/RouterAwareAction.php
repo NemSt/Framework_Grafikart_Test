@@ -5,7 +5,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Rajoute des méthode liée à l'utilisation du Router
+ * Add methods related to router
  *
  * Trait RouterAwareAction
  * @package Framework\Actions
@@ -14,7 +14,7 @@ trait RouterAwareAction
 {
 
     /**
-     * Renvoie une réponse de redirection
+     * Return redirection response
      *
      * @param string $path
      * @param array $params

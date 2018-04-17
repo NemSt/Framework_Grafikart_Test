@@ -23,12 +23,12 @@ class BlogModule extends Module
         $renderer->addPath('blog', __DIR__ . '/views');
         $router->get($prefix, BlogAction::class, 'blog.index');
         $router->get(
-            $prefix . "/{slug}",
+            $prefix . "/{slug}-{id}",
             BlogAction::class, //se servira du container
             'blog.show',
             [
-                'slug' => '[a-z\-0-9]+'
-                //'id' => '[0-9]+'
+                'slug' => '[a-z\-0-9]+',
+                'id' => '[0-9]+'
             ]
         );
     }

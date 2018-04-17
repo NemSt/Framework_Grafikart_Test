@@ -15,9 +15,10 @@ class TwigRenderer implements RendererInterface
     }
 
     /**
-     * Permet de rajouter un chamin pour charger les vues
+     * Add a path to render views
      * @param string $namespace
      * @param null|string $path
+     * @throws \Twig_Error_Loader
      */
     public function addPath(string $namespace, ?string $path = null): void
     {
@@ -25,13 +26,16 @@ class TwigRenderer implements RendererInterface
     }
 
     /**
-     * Permet de rendre une vue
-     * Le chemin peut être précisé avec des namespace rajoutés via addPath()
+     * Render a view
+     * Path from namespace or addPath()
      * $this->render('@blog/view');
      * $this->render('view');
      * @param string $view
      * @param array $params
      * @return string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function render(string $view, array $params = []): string
     {
@@ -39,7 +43,7 @@ class TwigRenderer implements RendererInterface
     }
 
     /**
-     * Permet de rajouter des variables globales à toutes les vues
+     * Add global variables to any view
      *
      * @param string $key
      * @param mixed $value

@@ -27,7 +27,7 @@ class Route
     /**
      * Route constructor.
      * @param string $name
-     * @param string/callable $callback
+     * @param string|callable $callback
      * @param array $params
      */
     public function __construct(string $name, $callback, array $params)
@@ -46,7 +46,7 @@ class Route
     }
 
     /**
-     * @return string/callable
+     * @return string|callable
      */
     public function getCallback()
     {
@@ -54,7 +54,7 @@ class Route
     }
 
     /**
-     * Retrive the URL parameters
+     * Retrieve the URL parameters
      * @return string[]
      */
     public function getParams(): array

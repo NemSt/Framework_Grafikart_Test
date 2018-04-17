@@ -27,7 +27,7 @@ class App
     /**
      * App constructor.
      * @param ContainerInterface $container
-     * @param string[] $modules Liste des modules à charger
+     * @param string[] $modules
      */
     public function __construct(ContainerInterface $container, array $modules = [])
     {

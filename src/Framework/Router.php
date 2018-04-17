@@ -29,14 +29,12 @@ class Router
         //$this->router = new FastRouteRouter();
     }
 
-    /*/**
+    /**
      * @param string $path
-     * @param string/callable $callable
+     * @param string|callable $callable
      * @param string $name
+     * @param array|null $tokens
      */
-    /*public function get(string $path, callable $callable, string $name){
-        $this->router->addRoute(new ZendRoute($path, $callable, ['GET'], $name));
-    }*/
     public function get(string $path, $callable, ?string $name = null, ?array $tokens = [])
     {
         $this->map->get($name, $path, $callable)->tokens($tokens);

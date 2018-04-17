@@ -16,7 +16,7 @@ class PostTable
     }
 
     /**
-     * Pagine les article
+     * Articles pagination
      *
      * @return \stdClass[]
      */
@@ -28,7 +28,7 @@ class PostTable
     }
 
     /**
-     * Récupère un article à partir de son ID
+     * Get an article from ID
      * @param int $id
      * @return \stdClass
      */
