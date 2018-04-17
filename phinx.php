@@ -3,6 +3,7 @@ require 'public/index.php';
 
 $migrations = [];
 $seeds = [];
+// pour que chaque module puisse définir ses propres migrations
 foreach ($modules as $module) {
     if ($module::MIGRATIONS) {
         $migrations[] = $module::MIGRATIONS;
@@ -24,7 +25,8 @@ return [
             'host' => $app->getContainer()->get('database.host'),
             'name' => $app->getContainer()->get('database.name'),
             'user' => $app->getContainer()->get('database.username'),
-            'pass' => $app->getContainer()->get('database.password')
+            'pass' => $app->getContainer()->get('database.password'),
+            'charset' => 'utf8'
         ]
     ]
 ];

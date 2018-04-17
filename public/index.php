@@ -17,7 +17,11 @@ $builder->addDefinitions(dirname(__DIR__) . '/config.php');
 $container = $builder->build();
 
 $app = new \Framework\App($container, $modules);
-//guzzle est un ensemble de méthodes conçues pour répondre au PSR7
-$response = $app->run(\GuzzleHttp\Psr7\ServerRequest::fromGlobals());
-//par contre, je dois convertir en output http l'objet response en psr7, et pour ça, j'utilise le package interop
-\Http\Response\send($response);
+
+if (php_sapi_name() !== "cli") {
+    //throw new Exception();
+    //guzzle est un ensemble de méthodes conçues pour répondre au PSR7
+    $response = $app->run(\GuzzleHttp\Psr7\ServerRequest::fromGlobals());
+    //par contre, je dois convertir en output http l'objet response en psr7, et pour ça, j'utilise le package interop
+    \Http\Response\send($response);
+}

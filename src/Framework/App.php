@@ -83,14 +83,11 @@ class App
         }
     }
 
-           /* Pour appeler une route dans un module
-           $router->get(
-            $prefix . "article/{slug}-{id}",
-            PostShowAction::class,
-            'home.show',
-            [
-            'slug' => '[a-z\-0-9]+',
-            'id' => '[0-9]+'
-            ]
-            );*/
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
 }

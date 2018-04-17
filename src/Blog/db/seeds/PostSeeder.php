@@ -15,14 +15,14 @@ class PostSeeder extends AbstractSeed
     public function run()
     {
         $data = [];
-        $faker = \Faker\Factory::create('fr_FR');
-        for ($i = 0; $i < 100; ++$i) {
-            $date = $faker->unixTime('now');
+        $faker = \Faker\Factory::create('fr_CA');
+        for ($i = 0; $i < 100; ++$i) { //pour avoir 100 faux articles
+            $date = $faker->unixTime('now'); //pour que ce soit la même date
             $data[] = [
                 'name' => $faker->catchPhrase,
                 'slug' => $faker->slug,
                 'content' => $faker->text(3000),
-                'created_at' => date('Y-m-d H:i:s', $date),
+                'created_at' => date('Y-m-d H:i:s', $date), //pour mettre la date au format sql
                 'updated_at' => date('Y-m-d H:i:s', $date)
             ];
         }

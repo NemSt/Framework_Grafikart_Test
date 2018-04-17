@@ -11,18 +11,20 @@ use Framework\Router;
 
 class BlogModule extends Module
 {
-    const DEFINITIONS = __DIR__ . '/config.php';
-    //private $prefix = 'blog';
-
+    // pour pouvoir personnaliser les éléments pour le module
+    const DEFINITIONS = __DIR__ . '/config.php'; // entre autres le préfixe à utiliser
+    const MIGRATIONS = __DIR__ . '/db/migrations';
+    const SEEDS = __DIR__ . '/db/seeds';
 
     public function __construct(string $prefix, Router $router, RendererInterface $renderer)
     {
+        //le container se sert d'autowire pour aller chercher les éléments requis
         //$this->renderer = $this->container->get('renderer');
         $renderer->addPath('blog', __DIR__ . '/views');
         $router->get($prefix, BlogAction::class, 'blog.index');
         $router->get(
             $prefix . "/{slug}",
-            BlogAction::class,
+            BlogAction::class, //se servira du container
             'blog.show',
             [
                 'slug' => '[a-z\-0-9]+'
@@ -30,7 +32,7 @@ class BlogModule extends Module
             ]
         );
     }
-
+//les fonctions ci-dessous ont été déplacées pour des raisons de logique (actions)
     //public function index(ServerRequestInterface $request): string/*ResponseInterface*/
    // {
         //return $this->renderer->render('@blog/index');
