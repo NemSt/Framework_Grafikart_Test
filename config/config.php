@@ -1,10 +1,19 @@
 <?php
 
+//use Framework\Middleware\CsrfMiddleware;
 use Framework\Renderer\RendererInterface;
 use Framework\Renderer\TwigRendererFactory;
+//use Framework\Router;
+//use Framework\Router\RouterFactory;
 use Framework\Router\RouterTwigExtension;
+//use Framework\Session\PHPSession;
+//use Framework\Session\SessionInterface;
+use Framework\Twig\{
+    /*CsrfExtension, FlashExtension, FormExtension, */PagerFantaExtension, TextExtension, TimeExtension
+};
 
 return [
+    //'env' => \DI\env('ENV', 'production'),
     'database.host' => 'localhost',
     'database.username' => 'root',
     'database.password' => '',
@@ -12,8 +21,17 @@ return [
     //'database.charset' => 'UTF8',
     'views.path' => dirname(__DIR__) . '/views',
     'twig.extensions' => [
-      \DI\get(RouterTwigExtension::class)
+        \DI\get(RouterTwigExtension::class),
+        \DI\get(PagerFantaExtension::class),
+        \DI\get(TextExtension::class),
+        \DI\get(TimeExtension::class),
+        //\DI\get(FlashExtension::class),
+        //\DI\get(FormExtension::class),
+        //\DI\get(CsrfExtension::class)
     ],
+    //SessionInterface::class => \DI\autowire(PHPSession::class),
+    //CsrfMiddleware::class => \DI\autowire()->constructor(\DI\get(SessionInterface::class)),
+    //Router::class => \DI\factory(RouterFactory::class),
     \Framework\Router::class => \DI\autowire(),
     RendererInterface::class => \DI\factory(TwigRendererFactory::class),
     //création de l'objet PDO qui permettra de ramener les articles à la vue
@@ -29,8 +47,12 @@ return [
             ]
         );
     }
-
+ // MAILER
+   //'mail.to'    => 'admin@admin.fr',
+    //Swift_Mailer::class => \DI\factory(\Framework\SwiftMailerFactory::class)
 ];
+
+
 
 //Initialisation du renderer pour que les views puissent être adaptées
 //$renderer = new \Framework\Renderer\TwigRenderer(dirname(__DIR__) . '/views');

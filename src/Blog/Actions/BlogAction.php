@@ -2,6 +2,7 @@
 namespace App\Blog\Actions;
 
 use App\Blog\Table\PostTable;
+use App\Blog\Entity\Post;
 use Framework\Actions\RouterAwareAction;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -47,16 +48,13 @@ class BlogAction
         if ($request->getAttribute('id')) {
             return $this->show($request);
         }
-        return $this->index();
-        /*if ($request->getAttribute('id')) {
-            return $this->show($request);
-        }
-        return $this->index();*/
+        return $this->index($request);
     }
 
-    public function index(): string
+    public function index(Request $request): string
     {
-        $posts = $this->postTable->findPaginated();
+        $params = $request->getQueryParams();
+        $posts = $this->postTable->findPaginated(12, $params['p'] ?? 1);
         return $this->renderer->render('@blog/index', compact('posts'));
     }
 
@@ -84,25 +82,4 @@ class BlogAction
             'post' => $post
         ]);
     }
-
-    /*/**
-     * Affiche un article
-     *
-     * @param Request $request
-     * @return ResponseInterface|string
-     */
-    /*public function show(Request $request)
-    {
-        $slug = $request->getAttribute('slug');
-        $post = $this->postTable->find($request->getAttribute('id'));
-        if ($post->slug !== $slug) {
-            return $this->redirect('blog.show', [
-                'slug' => $post->slug,
-                'id' => $post->id
-            ]);
-        }
-        return $this->renderer->render('@blog/show', [
-            'post' => $post
-        ]);
-    }*/
 }
