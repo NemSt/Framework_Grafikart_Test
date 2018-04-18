@@ -4,6 +4,7 @@
 namespace Tests\App\Blog\Actions;
 
 use App\Blog\Actions\BlogAction;
+use App\Blog\Entity\Post;
 use App\Blog\Table\PostTable;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -29,7 +30,7 @@ class BlogActionTest extends TestCase
     public function setUp()
     {
         $this->renderer = $this->prophesize(RendererInterface::class);
-        $this->renderer->render(Argument::any())->willReturn('');
+        //$this->renderer->render(Argument::any())->willReturn('');
         $this->postTable = $this->prophesize(PostTable::class);
         // Article
         //$post = new \stdClass();
@@ -44,10 +45,10 @@ class BlogActionTest extends TestCase
         );
     }
 
-    public function makePost(int $id, string $slug): \stdClass
+    public function makePost(int $id, string $slug): Post
     {
         // Article
-        $post = new \stdClass();
+        $post = new Post();
         $post->id = $id;
         $post->slug = $slug;
         return $post;
@@ -80,7 +81,7 @@ class BlogActionTest extends TestCase
         $this->postTable->find($post->id)->willReturn($post);
         $this->renderer->render('@blog/show', ['post' => $post])->willReturn('');
 
-       //$response = call_user_func_array($this->action, [$request]);
+        $response = call_user_func_array($this->action, [$request]);
          //$this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(true, true);
     }

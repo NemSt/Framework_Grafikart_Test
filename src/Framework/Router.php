@@ -35,7 +35,7 @@ class Router
      * @param string $name
      * @param array|null $tokens
      */
-    public function get(string $path, $callable, ?string $name = null, ?array $tokens = [])
+    public function get(string $path, $callable, string $name, ?array $tokens = [])
     {
         $this->map->get($name, $path, $callable)->tokens($tokens);
     }
@@ -60,14 +60,14 @@ class Router
     {
         $matcher = $this->routerContainer->getMatcher();
         $route = $matcher->match($request);
-        if (!$route) {
-            return null;
+        if ($route) {
+            return new Route(
+                $route->name,
+                $route->handler,
+                $route->attributes
+            );
         }
-        return new Route(
-            $route->name,
-            $route->handler,
-            $route->attributes
-        );
+        return null;
     }
 
     /**
