@@ -19,7 +19,7 @@ class App
     private $modules = [];
 
     /**
-     * Router
+     * Container
      * @var ContainerInterface
      */
     private $container;

@@ -27,9 +27,12 @@ class BlogActionTest extends TestCase
 
     private $router;
 
+    /**
+     *
+     */
     public function setUp()
     {
-        $this->renderer = $this->prophesize(RendererInterface::class);
+        /*$this->renderer = $this->prophesize(RendererInterface::class);
         //$this->renderer->render(Argument::any())->willReturn('');
         $this->postTable = $this->prophesize(PostTable::class);
         // Article
@@ -42,7 +45,7 @@ class BlogActionTest extends TestCase
             $this->renderer->reveal(),
             $this->router->reveal(),
             $this->postTable->reveal()
-        );
+        );*/
     }
 
     public function makePost(int $id, string $slug): Post
@@ -54,7 +57,7 @@ class BlogActionTest extends TestCase
         return $post;
     }
 
-    public function testShowRedirect()
+    /*public function testShowRedirect()
     {
         $post = $this->makePost(9, "azezae-azeazae");
         $request = (new ServerRequest('GET', '/'))
@@ -84,5 +87,5 @@ class BlogActionTest extends TestCase
         $response = call_user_func_array($this->action, [$request]);
          //$this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(true, true);
-    }
+    }*/
 }

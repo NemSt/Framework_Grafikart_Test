@@ -9,7 +9,7 @@ use Framework\Router\RouterTwigExtension;
 use Framework\Session\PHPSession;
 use Framework\Session\SessionInterface;
 use Framework\Twig\{
-    /*CsrfExtension, FormExtension, */FlashExtension, PagerFantaExtension, TextExtension, TimeExtension
+    /*CsrfExtension,*/FormExtension, FlashExtension, PagerFantaExtension, TextExtension, TimeExtension
 };
 
 return [
@@ -26,7 +26,7 @@ return [
         \DI\get(TextExtension::class),
         \DI\get(TimeExtension::class),
         \DI\get(FlashExtension::class),
-        //\DI\get(FormExtension::class),
+        \DI\get(FormExtension::class),
         //\DI\get(CsrfExtension::class)
     ],
     SessionInterface::class => \DI\autowire(PHPSession::class),
