@@ -32,10 +32,10 @@ class Router
     /**
      * @param string $path
      * @param string|callable $callable
-     * @param string $name
+     * @param string|null $name
      * @param array|null $tokens
      */
-    public function get(string $path, $callable, string $name, ?array $tokens = [])
+    public function get(string $path, $callable, ?string $name = null, ?array $tokens = [])
     {
         $this->map->get($name, $path, $callable)->tokens($tokens);
     }
@@ -52,6 +52,57 @@ class Router
             $result->getMatchedParams()
         );
     }*/
+
+    /**
+     * @param string $path
+     * @param string|callable $callable
+     * @param string|null $name
+     * @param array|null $tokens
+     */
+    public function post(string $path, $callable, ?string $name = null, ?array $tokens = [])
+    {
+        if (!$name) {
+            $name = '';
+        }
+        $this->map->post($name, $path, $callable)->tokens($tokens);
+    }
+
+    /**
+     * @param string $path
+     * @param string|callable $callable
+     * @param string|null $name
+     * @param array|null $tokens
+     */
+    public function delete(string $path, $callable, ?string $name = null, ?array $tokens = [])
+    {
+
+        $this->map->delete($name, $path, $callable)->tokens($tokens);
+    }
+
+    /**
+     * Getting CRUD routes
+     *
+     * @param string $prefixPath
+     * @param $callable
+     * @param string $prefixName
+     */
+    public function crud(string $prefixPath, $callable, string $prefixName)
+    {
+        $this->get("$prefixPath", $callable, "$prefixName.index");
+        $this->get("$prefixPath/new", $callable, "$prefixName.create");
+        $this->post("$prefixPath/new", $callable);
+        $this->get("$prefixPath/{id}", $callable, "$prefixName.edit", [
+            'id' => '[0-9]+'
+        ]);
+        $this->post("$prefixPath/{id}", $callable, null, [
+            'id' => '[0-9]+'
+        ]);
+        //la fonction delete ne fonctionne pas, je vais peut-être la changer pour juste empêcher l'affichage...
+        //ok réglé :-)
+        $this->delete("$prefixPath/{id}", $callable, "$prefixName.delete", [
+            'id' => '[0-9]+'
+        ]);
+    }
     /**
      * @param ServerRequestInterface $request
      * @return Route|null

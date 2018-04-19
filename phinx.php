@@ -4,7 +4,8 @@ require 'public/index.php';
 $migrations = [];
 $seeds = [];
 // pour que chaque module puisse définir ses propres migrations
-foreach ($app->getModules() as $module) {
+//foreach ($app->getModules() as $module) {
+foreach ($modules as $module) {
     if ($module::MIGRATIONS) {
         $migrations[] = $module::MIGRATIONS;
     }

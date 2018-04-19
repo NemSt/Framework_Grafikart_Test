@@ -1,10 +1,12 @@
 <?php
 namespace App\Blog;
 
+use App\Blog\Actions\AdminBlogAction;
 use App\Blog\Actions\BlogAction;
 use Framework\Module;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
+use Psr\Container\ContainerInterface;
 
 //use Psr\Container\ContainerInterface;
 
@@ -18,14 +20,15 @@ class BlogModule extends Module
     const MIGRATIONS = __DIR__ . '/db/migrations';
     const SEEDS = __DIR__ . '/db/seeds';
 
-    public function __construct(string $prefix, Router $router, RendererInterface $renderer)
+    public function __construct(ContainerInterface $container)
     {
         //le container se sert d'autowire pour aller chercher les éléments requis
-        //$this->renderer = $this->container->get('renderer');
-        $renderer->addPath('blog', __DIR__ . '/views');
-        $router->get($prefix, BlogAction::class, 'blog.index');
+        $blogPrefix = $container->get('blog.prefix');
+        $container->get(RendererInterface::class)->addPath('blog', __DIR__ . '/views');
+        $router = $container->get(Router::class);
+        $router->get($blogPrefix, BlogAction::class, 'blog.index');
         $router->get(
-            $prefix . '/{slug}-{id}',
+            "$blogPrefix/{slug}-{id}",
             BlogAction::class, //se servira du container
             'blog.show',
             [
@@ -33,6 +36,11 @@ class BlogModule extends Module
                 'id' => '[0-9]+'
             ]
         );
+        //si le module admin a été chargé, alors on va appeler le crud
+        if ($container->has('admin.prefix')) {
+            $prefix = $container->get('admin.prefix');
+            $router->crud("$prefix/posts", AdminBlogAction::class, 'blog.admin');
+        }
     }
 
     /*public function __construct(ContainerInterface $container)

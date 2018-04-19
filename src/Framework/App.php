@@ -55,6 +55,11 @@ class App
     {
         // Pour éliminer les / en fin d'url et rediriger; utilisation des variables globales du serveur
         $uri = $request->getUri()->getPath();
+        $parsedBody = $request->getParsedBody();
+        if (array_key_exists('_method', $parsedBody) &&
+            in_array($parsedBody['_method'], ['DELETE', 'PUT'])) {
+            $request = $request->withMethod($parsedBody['_method']);
+        }
         if (!empty($uri) && $uri[-1] === "/") {
             return (new Response())//on crée l'objet et on le retourne en appellant tout de suite certaines méthodes
                 ->withStatus(301)//c'est la façon que guzzle a de faire une sorte de "set"
