@@ -1,4 +1,5 @@
 <div class="form-group">
+  {{ dump(errors) }} <!--sorte de debug de twig qui doit être init. dans RendererFactory-->
   <label for="name">Titre de l'article</label>
   <input type="text" class="form-control" name="name" id="name" value="{{ item.name }}">
 </div>
