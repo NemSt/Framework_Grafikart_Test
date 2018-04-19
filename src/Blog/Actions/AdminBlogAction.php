@@ -5,6 +5,8 @@ use App\Blog\Table\PostTable;
 use Framework\Actions\RouterAwareAction;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
+use Framework\Session\FlashService;
+use Framework\Session\SessionInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -25,14 +27,25 @@ class AdminBlogAction
      * @var PostTable
      */
     private $postTable;
+    /**
+     * @var FlashService
+     */
+    private $flash;
+
 
     use RouterAwareAction;
 
-    public function __construct(RendererInterface $renderer, Router $router, PostTable $postTable)
-    {
+    public function __construct(
+        RendererInterface $renderer,
+        Router $router,
+        PostTable $postTable,
+        FlashService $flash
+    ) {//encore ici, c'est possible de le mettre directement parce que PhpDI va y injecter
+                            //de façon automatique la session nécessaire à la construction de FlashService
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postTable = $postTable;
+        $this->flash = $flash;
     }
 
     public function __invoke(Request $request)
@@ -49,6 +62,10 @@ class AdminBlogAction
         return $this->index($request);
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function index(Request $request): string
     {
         $params = $request->getQueryParams();
@@ -70,6 +87,7 @@ class AdminBlogAction
             $params = $this->getParams($request);
             $params['updated_at'] = date('Y-m-d H:i:s');
             $this->postTable->update($item->id, $params);
+            $this->flash->success('L\'article a bien été modifié');
             return $this->redirect('blog.admin.index');
         }
 
@@ -90,6 +108,7 @@ class AdminBlogAction
                 'created_at' => date('Y-m-d H:i:s')
             ]);
             $this->postTable->insert($params);
+            $this->flash->success('L\'article a bien été ajouté');
             return $this->redirect('blog.admin.index');
         }
 
@@ -99,6 +118,7 @@ class AdminBlogAction
     public function delete(Request $request)
     {
         $this->postTable->delete($request->getAttribute('id'));
+        $this->flash->success('L\'article a bien été supprimé');
         return $this->redirect('blog.admin.index');
     }
 
