@@ -16,11 +16,10 @@ class TwigRenderer implements RendererInterface
      * Add a path to render views
      * @param string $namespace
      * @param null|string $path
-     * @throws \Twig_Error_Loader
      */
     public function addPath(string $namespace, ?string $path = null): void
     {
-        $this->twig->getLoader()->addPath($path, $namespace);
+        $this->twig->getLoader()->addPath($path, $namespace); //diff = phpdoc (A)throws \Twig_Error_Loader
     }
 
     /**

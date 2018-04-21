@@ -43,14 +43,16 @@ class FormExtension extends \Twig_Extension
             'class' => trim('form-control ' . ($options['class'] ?? '')),
             'name'  => $key,
             'id'    => $key
-        ];
+        ];*/
 
-        if ($error) {
-            $class .= ' has-danger';
-            $attributes['class'] .= ' form-control-danger';
+        /*if ($error) {
+            $class .= ' is-invalid';
+            $attributes['class'] .= ' is-invalid';
         }*/
         if ($type === 'textarea') {
             $input = $this->textarea($value, $attributes);
+        } elseif (array_key_exists('options', $options)) {
+            $input = $this->select($value, $options['options'], $attributes);
         } else {
             $input = $this->input($value, $attributes);
         }
@@ -59,18 +61,12 @@ class FormExtension extends \Twig_Extension
               {$input}
               {$error}
             </div>";
-
-        //return "<div class=\"" . $class . "\">
-              //<label for=\"name\">{$label}</label>
-              //{$input}
-              //{$error}
-            //</div>";
     }
 
     private function convertValue($value): string
     {
         if ($value instanceof \DateTime) {
-            return $value->format('Y-m-d H:i:s');
+            return $value->format('Y-m-d');
         }
         return (string)$value;
     }
@@ -117,14 +113,45 @@ class FormExtension extends \Twig_Extension
     }
 
     /**
+     * Génère un <select>
+     * @param null|string $value
+     * @param array $options
+     * @param array $attributes
+     * @return string
+     */
+    private function select(?string $value, array $options, array $attributes)
+    {
+        $htmlOptions = array_reduce(array_keys($options), function (string $html, string $key) use ($options, $value) {
+            $params = ['value' => $key, 'selected' => $key === $value];
+            return $html . '<option value="' .
+                substr($this->getHtmlFromArray($params), 7) . '>' . $options[$key] . '</option>';
+        }, '');
+        return "<select " . $this->getHtmlFromArray($attributes) . ">$htmlOptions</select>";
+
+        /*<select class="form-control is-valid" name="name" id="name">
+              <option value="1">Demo</option>
+              <option value="2" selected>Demo2</option>
+              </select>*/
+    }
+
+    /**
      * Change a $key => $value array in html attribute
      * @param array $attributes
      * @return string
      */
     private function getHtmlFromArray(array $attributes)
     {
-        return implode(' ', array_map(function ($key, $value) {
+        $htmlParts = [];
+        foreach ($attributes as $key => $value) {
+            if ($value === true) {
+                $htmlParts[] = (string) $key;
+            } elseif ($value !== false) {
+                $htmlParts[] = "$key=\"$value\"";
+            }
+        }
+        return implode(' ', $htmlParts);
+        /*return implode(' ', array_map(function ($key, $value) {
             return "$key=\"$value\"";
-        }, array_keys($attributes), $attributes));
+        }, array_keys($attributes), $attributes));*/
     }
 }

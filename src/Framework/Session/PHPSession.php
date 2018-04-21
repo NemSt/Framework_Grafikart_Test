@@ -4,12 +4,10 @@ namespace Framework\Session;
 
 class PHPSession implements SessionInterface
 {
-    //Comme je ne veux pas toujours avoir une session de démarrée, je ne veux pas que ce soit dans l'index, donc
-    //ici c'est l'endroit le plus logique puisque ce n'est que lors du Set, Get, Delete que ce sera nécessaire
     /**
      * Ensure session starts
      */
-    private function ensureStarted() //je ne veux démarrer une session que si une session n'est pas déjà démarrée
+    private function ensureStarted()
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -36,7 +34,6 @@ class PHPSession implements SessionInterface
      *
      * @param string $key
      * @param $value
-     * @return mixed
      */
     public function set(string $key, $value): void
     {

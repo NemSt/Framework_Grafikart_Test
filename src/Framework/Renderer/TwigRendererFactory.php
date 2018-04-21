@@ -2,7 +2,7 @@
 namespace Framework\Renderer;
 
 use Psr\Container\ContainerInterface;
-use Twig\Extension\DebugExtension;
+use Twig\Extension\DebugExtension; /*ajout*/
 
 class TwigRendererFactory
 {

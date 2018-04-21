@@ -7,7 +7,7 @@ interface SessionInterface
     /**
      * Get info in session
      * @param string $key
-     * @param mixed $default
+     * @param mixed|null $default
      * @return mixed
      */
     public function get(string $key, $default = null);
@@ -16,8 +16,7 @@ interface SessionInterface
      * Add a key to session
      *
      * @param string $key
-     * @param $value
-     * @return mixed
+     * @param $value     *
      */
     public function set(string $key, $value): void;
 

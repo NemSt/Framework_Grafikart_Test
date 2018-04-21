@@ -1,5 +1,5 @@
 <?php
-namespace App\Blog\Entity;
+namespace App\Blog\Entity; /*identique*/
 
 class Post
 {
@@ -15,6 +15,8 @@ class Post
     public $created_at;
 
     public $updated_at;
+
+    public $category_name;
 
     public function __construct()
     {

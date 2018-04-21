@@ -20,7 +20,7 @@ class TimeExtensionTest extends TestCase
     public function testDateFormat()
     {
         $date = new \DateTime();
-        $format = 'd/m/Y H:i';
+        $format = 'd/m/Y';
         $result = '<span class="timeago" datetime="' .
             $date->format(\DateTime::ISO8601) .
             '">' .

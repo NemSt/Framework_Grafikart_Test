@@ -6,7 +6,7 @@ namespace Framework;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 //code sniffer pour détecter d'autres anomalies : "composer require squizlabs/php_codesniffer"
 //git
@@ -47,11 +47,11 @@ class App
     //la méthode implémente des interfaces de guzzle qui permettent d'utiliser les objets request et response
 
     /**
-     * @param ServerRequestInterface $request
+     * @param Request $request
      * @return ResponseInterface
      * @throws \Exception
      */
-    public function run(ServerRequestInterface $request): ResponseInterface
+    public function run(Request $request): ResponseInterface
     {
         // Pour éliminer les / en fin d'url et rediriger; utilisation des variables globales du serveur
         $uri = $request->getUri()->getPath();

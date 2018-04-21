@@ -1,5 +1,5 @@
 <?php
-namespace App\Blog\Actions;
+namespace App\Blog\Actions; /*Identique à marche retard*/
 
 use App\Blog\Table\PostTable;
 use App\Blog\Entity\Post;
@@ -30,8 +30,11 @@ class BlogAction
     use RouterAwareAction;
 
 
-    public function __construct(RendererInterface $renderer, Router $router, PostTable $postTable)
-    {
+    public function __construct(
+        RendererInterface $renderer,
+        Router $router,
+        PostTable $postTable
+    ) {
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postTable = $postTable;

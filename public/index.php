@@ -1,4 +1,9 @@
 <?php
+
+use DI\ContainerBuilder;
+
+//use Psr\Container\ContainerInterface;
+
 require dirname(__DIR__) . '/vendor/autoload.php';
 $modules = [
     \App\Admin\AdminModule::class,
@@ -6,7 +11,7 @@ $modules = [
 ];
 
 //Pour la gestion de l'injection des dépendances on va charger PHP-DI
-$builder = new \DI\ContainerBuilder();
+$builder = new ContainerBuilder();
 $builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
 
 foreach ($modules as $module) {

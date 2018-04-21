@@ -1,8 +1,10 @@
 <?php
 namespace App\Blog;
 
-use App\Blog\Actions\AdminBlogAction;
+//use App\Blog\Actions\AdminBlogAction;
 use App\Blog\Actions\BlogAction;
+use App\Blog\Actions\PostCrudAction;
+use App\Blog\Actions\CategoryCrudAction;
 use Framework\Module;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -39,7 +41,8 @@ class BlogModule extends Module
         //si le module admin a été chargé, alors on va appeler le crud
         if ($container->has('admin.prefix')) {
             $prefix = $container->get('admin.prefix');
-            $router->crud("$prefix/posts", AdminBlogAction::class, 'blog.admin');
+            $router->crud("$prefix/posts", PostCrudAction::class, 'blog.admin');
+            $router->crud("$prefix/categories", CategoryCrudAction::class, 'blog.category.admin');
         }
     }
 
@@ -56,20 +59,20 @@ class BlogModule extends Module
             $prefix = $container->get('admin.prefix');
             $router->crud("$prefix/posts", PostCrudAction::class, 'blog.admin');
             $router->crud("$prefix/categories", CategoryCrudAction::class, 'blog.category.admin');
-        }*/
-    //}
+        }
+    }*/
 
 //les fonctions ci-dessous ont été déplacées pour des raisons de logique (actions)
-    //public function index(ServerRequestInterface $request): string/*ResponseInterface*/
-   // {
-        //return $this->renderer->render('@blog/index');
-    //}
+    /*public function index(ServerRequestInterface $request): string*//*ResponseInterface*/
+    /*{
+        return $this->renderer->render('@blog/index');
+    }
 
-   // public function show(ServerRequestInterface $request): string
-    //{
+    public function show(ServerRequestInterface $request): string
+    {
 
-       // return $this->renderer->render('@blog/show', [
-            //'slug' =>$request->getAttribute('slug')
-       // ]);
-    //}
+        return $this->renderer->render('@blog/show', [
+            'slug' =>$request->getAttribute('slug')
+        ]);
+    }*/
 }

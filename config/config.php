@@ -8,17 +8,13 @@ use Framework\Router;
 use Framework\Router\RouterTwigExtension;
 use Framework\Session\PHPSession;
 use Framework\Session\SessionInterface;
-use Framework\Twig\{
-    /*CsrfExtension,*/FormExtension, FlashExtension, PagerFantaExtension, TextExtension, TimeExtension
-};
+use Framework\Twig\{FormExtension, FlashExtension, PagerFantaExtension, TextExtension, TimeExtension};
 
 return [
-    //'env' => \DI\env('ENV', 'production'),
     'database.host' => 'localhost',
     'database.username' => 'root',
     'database.password' => '',
     'database.name' => 'monsupersite',
-    //'database.charset' => 'UTF8',
     'views.path' => dirname(__DIR__) . '/views',
     'twig.extensions' => [
         \DI\get(RouterTwigExtension::class),
@@ -26,14 +22,13 @@ return [
         \DI\get(TextExtension::class),
         \DI\get(TimeExtension::class),
         \DI\get(FlashExtension::class),
-        \DI\get(FormExtension::class),
-        //\DI\get(CsrfExtension::class)
+        \DI\get(FormExtension::class)
     ],
     SessionInterface::class => \DI\autowire(PHPSession::class),
-    //CsrfMiddleware::class => \DI\autowire()->constructor(\DI\get(SessionInterface::class)),
     //Router::class => \DI\factory(RouterFactory::class),
     Router::class => \DI\autowire(),
     RendererInterface::class => \DI\factory(TwigRendererFactory::class),
+    //ini_set('xdebug.max_nesting_level', 200),
     //création de l'objet PDO qui permettra de ramener les articles à la vue
     \PDO::class => function (\Psr\Container\ContainerInterface $c)
     {
@@ -47,15 +42,4 @@ return [
             ]
         );
     }
- // MAILER
-   //'mail.to'    => 'admin@admin.fr',
-    //Swift_Mailer::class => \DI\factory(\Framework\SwiftMailerFactory::class)
 ];
-
-
-
-//Initialisation du renderer pour que les views puissent être adaptées
-//$renderer = new \Framework\Renderer\TwigRenderer(dirname(__DIR__) . '/views');
-//$renderer->addPath(dirname(__DIR__) . '/views');
-//$loader = new Twig_Loader_Filesystem(dirname(__DIR__) . '/views');
-//$twig = new Twig_Environment($loader, []);

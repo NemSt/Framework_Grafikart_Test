@@ -23,7 +23,7 @@ class Validator
     }
 
     /**
-     * Validate if fields exist in array
+     * Validate if all required fields are in array
      *
      * @param string ...$keys
      * @return Validator
@@ -97,13 +97,31 @@ class Validator
         return $this;
     }
 
-    public function dateTime(string $key, string $format = "Y-m-d H:i:s"): self
+    public function dateTime(string $key, string $format = "Y-m-d"): self
     {
         $value = $this->getValue($key);
         $date = \DateTime::createFromFormat($format, $value); //conversion en DateTime d'un string
         $errors = \DateTime::getLastErrors();
         if ($errors['error_count'] > 0 || $errors['warning_count'] > 0 || $date === false) {
             $this->addError($key, 'datetime', [$format]);
+        }
+        return $this;
+    }
+     /**
+     * Check if key exists in db
+     *
+     * @param string $key
+     * @param string $table
+     * @param \PDO $pdo
+     * @return Validator
+     */
+    public function exists(string $key, string $table, \PDO $pdo): self
+    {
+        $value = $this->getValue($key);
+        $statement = $pdo->prepare("SELECT id FROM $table WHERE id = ?");
+        $statement->execute([$value]);
+        if ($statement->fetchColumn() === false) {
+            $this->addError($key, 'exists', [$table]);
         }
         return $this;
     }
@@ -129,7 +147,7 @@ class Validator
      * @param string $rule
      * @param array $attributes
      */
-    private function addError(string $key, string $rule, array $attributes = [])
+    private function addError(string $key, string $rule, array $attributes = []): void
     {
         $this->errors[$key] = new ValidationError($key, $rule, $attributes);
     }

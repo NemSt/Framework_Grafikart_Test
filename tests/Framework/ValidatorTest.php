@@ -6,7 +6,7 @@ use Framework\Validator;
 use PHPUnit\Framework\TestCase;
 use Tests\DatabaseTestCase;
 
-class ValidatorTest extends TestCase
+class ValidatorTest extends DatabaseTestCase
 {
 
     private function makeValidator(array $params)
@@ -78,39 +78,40 @@ class ValidatorTest extends TestCase
 
     public function testDateTime()
     {
-        $this->assertCount(0, $this->makeValidator(['date' => '2012-12-12 11:12:13'])->dateTime('date')->getErrors());
-        $this->assertCount(0, $this->makeValidator(['date' => '2012-12-12 00:00:00'])->dateTime('date')->getErrors());
-        $this->assertCount(1, $this->makeValidator(['date' => '2012-21-12'])->dateTime('date')->getErrors());
-        $this->assertCount(1, $this->makeValidator(['date' => '2013-02-29 11:12:13'])->dateTime('date')->getErrors());
+        $this->assertCount(0, $this->makeValidator(['date' => '2012-10-10'])->dateTime('date')->getErrors());
+        $this->assertCount(0, $this->makeValidator(['date' => '2012-12-12'])->dateTime('date')->getErrors());
+        $this->assertCount(1, $this->makeValidator(['date' => '2012-41-12'])->dateTime('date')->getErrors());
+        $this->assertCount(1, $this->makeValidator(['date' => '2013-02-29'])->dateTime('date')->getErrors());
     }
-}
 
-    /*public function testExists()
+
+    public function testExists()
     {
         $pdo = $this->getPdo();
-        $pdo->exec('CREATE TABLE test (
+        $pdo->exec('CREATE TABLE test ( /*création de la fausse table pour tester*/
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR(255)
         )');
+        //Ensuite on va créer deux faux enregistrements pour les tests
         $pdo->exec('INSERT INTO test (name) VALUES ("a1")');
         $pdo->exec('INSERT INTO test (name) VALUES ("a2")');
         $this->assertTrue($this->makeValidator(['category' => 1])->exists('category', 'test', $pdo)->isValid());
         $this->assertFalse($this->makeValidator(['category' => 1121213])->exists('category', 'test', $pdo)->isValid());
     }
 
-    public function testUnique()
+    /*public function testUnique()
     {
         $pdo = $this->getPdo();
         $pdo->exec('CREATE TABLE test (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR(255)
         )');
+
         $pdo->exec('INSERT INTO test (name) VALUES ("a1")');
         $pdo->exec('INSERT INTO test (name) VALUES ("a2")');
         $this->assertFalse($this->makeValidator(['name' => 'a1'])->unique('name', 'test', $pdo)->isValid());
         $this->assertTrue($this->makeValidator(['name' => 'a111'])->unique('name', 'test', $pdo)->isValid());
         $this->assertTrue($this->makeValidator(['name' => 'a1'])->unique('name', 'test', $pdo, 1)->isValid());
         $this->assertFalse($this->makeValidator(['name' => 'a2'])->unique('name', 'test', $pdo, 1)->isValid());
-    }
-
-}*/
+    }*/
+}

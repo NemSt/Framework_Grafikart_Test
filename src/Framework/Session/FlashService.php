@@ -35,6 +35,10 @@ class FlashService
         $this->session->set($this->sessionKey, $flash);
     }
 
+    /**
+     * @param string $type
+     * @return null|string
+     */
     public function get(string $type): ?string //pour récupérer la clé associée à la fonction utilisée
     {
         if (is_null($this->messages)) {

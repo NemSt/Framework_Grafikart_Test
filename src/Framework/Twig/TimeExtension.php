@@ -14,7 +14,7 @@ class TimeExtension extends \Twig_Extension
         ];
     }
 
-    public function ago(\DateTime $date, string $format = 'd/m/Y H:i')
+    public function ago(\DateTime $date, string $format = 'd/m/Y')
     {
         //timeago est un plugin js qui permet de transformer le format de la date
         return '<span class="timeago" datetime="' . $date->format(\DateTime::ISO8601) . '">' .

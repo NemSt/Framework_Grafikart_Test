@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class DatabaseTestCase extends TestCase
 {
-
+//tests avec SQLite pour tout ce qui a rapport avec la base de données
     public function getPDO()
     {
         return new PDO('sqlite::memory:', null, null, [

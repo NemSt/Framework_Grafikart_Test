@@ -28,7 +28,7 @@ class Route
      * Route constructor.
      * @param string $name
      * @param string|callable $callback
-     * @param array $params
+     * @param array $parameters
      */
     public function __construct(string $name, $callback, array $parameters)
     {
