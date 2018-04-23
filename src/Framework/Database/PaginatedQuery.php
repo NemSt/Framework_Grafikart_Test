@@ -21,9 +21,13 @@ class PaginatedQuery implements AdapterInterface
     private $countQuery;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $entity;
+    /**
+     * @var array
+     */
+    private $params;
 
     /**
      * PaginatedQuery constructor.
@@ -31,16 +35,23 @@ class PaginatedQuery implements AdapterInterface
      * @param string $query Query to get n results
      * @param string $countQuery Query to count how many results (total)
      * @param string|null $entity
+     * @param array $params
      */
-    public function __construct(\PDO $pdo, string $query, string $countQuery, ?string $entity)
-    {
- /*diff = ?string $entity*/
+    public function __construct(
+        \PDO $pdo,
+        string $query,
+        string $countQuery,
+        ?string $entity,
+        array $params = []
+    ) {
+
         $this->pdo = $pdo;
         $this->query = $query;
         $this->countQuery = $countQuery;
         $this->entity = $entity;
+        $this->params = $params;
     }
-
+//%7Bslug%7D?slug=ut-ut-velit-sunt-reprehenderit&p=2
     /**
      * Returns the number of results.
      *
@@ -48,6 +59,11 @@ class PaginatedQuery implements AdapterInterface
      */
     public function getNbResults(): int
     {
+        if (!empty($this->params)) {
+            $query = $this->pdo->prepare($this->countQuery);
+            $query->execute($this->params);
+            return $query->fetchColumn();
+        }
         return $this->pdo->query($this->countQuery)->fetchColumn();
     }
 
@@ -62,6 +78,9 @@ class PaginatedQuery implements AdapterInterface
     public function getSlice($offset, $length): array
     {
         $statement = $this->pdo->prepare($this->query . ' LIMIT :offset, :length');
+        foreach ($this->params as $key => $param) {
+            $statement->bindParam($key, $param);
+        }
         $statement->bindParam('offset', $offset, \PDO::PARAM_INT);
         $statement->bindParam('length', $length, \PDO::PARAM_INT);
         if ($this->entity) {

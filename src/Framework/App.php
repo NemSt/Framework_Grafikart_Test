@@ -84,7 +84,7 @@ class App
         } elseif ($response instanceof ResponseInterface) {
             return $response;
         } else {
-            throw new \Exception('The response is not a string or an instance of response interface');
+            throw new \Exception('The response is not a string or an instance of ResponseInterface');
         }
     }
 

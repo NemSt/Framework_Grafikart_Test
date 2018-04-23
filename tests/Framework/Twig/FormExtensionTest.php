@@ -26,8 +26,7 @@ class FormExtensionTest extends TestCase
         return implode('', $lines);
     }
 
-    public function assertSimilar(string $expected, string $actual)
-    {
+    public function assertSimilar(string $expected, string $actual) {
         $this->assertEquals($this->trim($expected), $this->trim($actual));
     }
 
@@ -66,8 +65,7 @@ class FormExtensionTest extends TestCase
             'name',
             'demo',
             'Titre',
-            ['type' => 'textarea']
-        );
+            ['type' => 'textarea']);
         $this->assertSimilar("
             <div class=\"form-group\">
               <label for=\"name\">Titre</label>
@@ -90,6 +88,7 @@ class FormExtensionTest extends TestCase
             </div>
         ", $html);
     }
+
     public function testSelect()
     {
         $html = $this->formExtension->field(

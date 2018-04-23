@@ -1,5 +1,5 @@
 <?php
-namespace App\Blog\Entity; /*identique*/
+namespace App\Blog\Entity;
 
 class Post
 {

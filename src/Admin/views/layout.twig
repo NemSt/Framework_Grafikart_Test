@@ -52,8 +52,8 @@
   </div>
 </nav>
 
-<main role="main" class="container">
-  <div>
+<main role="main">
+  <div class="container">
 <!--Pour simplifier session.get('success'), création d'un helper flash (twig extension)-->
       {% if flash('success') %}
           <div class="alert alert-success" role="alert">
@@ -66,10 +66,11 @@
               {{ flash('error') }}
           </div>
       {% endif %}
+
     {% block body %}{% endblock %}
 
-  </div>
-</main><!-- /.container -->
+  </div><!-- /.container -->
+</main>
 
 <script src=https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.4.4/flatpickr.min.js></script>
 <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>

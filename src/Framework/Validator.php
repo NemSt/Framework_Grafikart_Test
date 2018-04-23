@@ -2,6 +2,7 @@
 
 namespace Framework;
 
+use Framework\Database\Table;
 use Framework\Validator\ValidationError;
 
 class Validator
@@ -42,7 +43,7 @@ class Validator
     /**
      * Validate if the field is not empty
      *
-     * @param string ...$keys
+     * @param string[] ...$keys
      * @return Validator
      */
     public function notEmpty(string ...$keys): self
@@ -126,6 +127,35 @@ class Validator
         return $this;
     }
 
+    /**
+     * Validate if key is unique
+     *
+     * @param string $key
+     * @param string $table
+     * @param \PDO $pdo
+     * @param int|null $exclude
+     * @return Validator
+     */
+    public function unique(string $key, string $table, \PDO $pdo, ?int $exclude = null): self
+    {
+        $value = $this->getValue($key);
+        $query = "SELECT id FROM $table WHERE $key = ?";
+        $params = [$value];
+        if ($exclude !== null) {
+            $query .= " AND id != ?";
+            $params[] = $exclude;
+        }
+        $statement = $pdo->prepare($query);
+        $statement->execute($params);
+        if ($statement->fetchColumn() !== false) {
+            $this->addError($key, 'unique', [$value]);
+        }
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
     public function isValid(): bool
     {
         return empty($this->errors);

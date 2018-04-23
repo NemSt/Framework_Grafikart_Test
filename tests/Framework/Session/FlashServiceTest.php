@@ -5,8 +5,7 @@ use Framework\Session\ArraySession;
 use Framework\Session\FlashService;
 use PHPUnit\Framework\TestCase;
 
-class FlashServiceTest extends TestCase
-{
+class FlashServiceTest extends TestCase {
 
     /**
      * @var ArraySession
@@ -24,8 +23,7 @@ class FlashServiceTest extends TestCase
         $this->flashService = new FlashService($this->session);
     }
 
-    public function testDeleteFlashAfterGettingIt()
-    {
+    public function testDeleteFlashAfterGettingIt() {
         $this->flashService->success('Bravo');
         $this->assertEquals('Bravo', $this->flashService->get('success'));
         $this->assertNull($this->session->get('flash'));

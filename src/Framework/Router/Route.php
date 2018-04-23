@@ -1,14 +1,13 @@
 <?php
-
 namespace Framework\Router;
 
 /**
  * Class Route
- * @package Framework\Router
- * Used to represent a matched route
+ * Represent a matched route
  */
 class Route
 {
+
     /**
      * @var string
      */

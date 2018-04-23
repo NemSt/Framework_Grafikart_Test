@@ -1,9 +1,9 @@
 <?php
 //Ce jeu de test a été tiré d'un exemple et ne fonctionne pas du tout, ce sera donc à corriger éventuellement
-//par conséquent je ferai des tests fonctionnels
+//par conséquent je ferai des tests fonctionnels; OK RÉGLÉ
 namespace Tests\App\Blog\Actions;
 
-use App\Blog\Actions\BlogAction;
+use App\Blog\Actions\PostShowAction;
 use App\Blog\Entity\Post;
 use App\Blog\Table\PostTable;
 use Framework\Renderer\RendererInterface;
@@ -13,11 +13,11 @@ use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
-class BlogActionTest extends TestCase
+class PostShowActionTest extends TestCase
 {
 
     /**
-     * @var BlogAction
+     * @var PostShowActionTest
      */
     private $action;
 
@@ -26,26 +26,18 @@ class BlogActionTest extends TestCase
     private $postTable;
 
     private $router;
-
-    /**
-     *
-     */
+//show render show redirect
     public function setUp()
     {
-        /*$this->renderer = $this->prophesize(RendererInterface::class);
-        //$this->renderer->render(Argument::any())->willReturn('');
+        $this->renderer = $this->prophesize(RendererInterface::class);
         $this->postTable = $this->prophesize(PostTable::class);
-        // Article
-        //$post = new \stdClass();
-        //$post->id = 9;
-        //$post->slug = 'demo-test';
-
+        // PDO
         $this->router = $this->prophesize(Router::class);
-        $this->action = new BlogAction(
+        $this->action = new PostShowAction(
             $this->renderer->reveal(),
             $this->router->reveal(),
             $this->postTable->reveal()
-        );*/
+        );
     }
 
     public function makePost(int $id, string $slug): Post
@@ -57,35 +49,43 @@ class BlogActionTest extends TestCase
         return $post;
     }
 
-    /*public function testShowRedirect()
+    /**
+     * @throws \Aura\Router\Exception\RouteNotFound
+     * @throws \Framework\Database\NoRecordException
+     */
+    public function testShowRedirect()
     {
         $post = $this->makePost(9, "azezae-azeazae");
         $request = (new ServerRequest('GET', '/'))
             ->withAttribute('id', $post->id)
             ->withAttribute('slug', 'demo');
 
-        $this->router->generateUri(
-            'blog.show',
-            ['id' => $post->id, 'slug' => $post->slug]
-        )->willReturn('/demo2');
-        $this->postTable->find($post->id)->willReturn($post);
+        $this->router->generateUri('blog.show', ['id' => $post->id, 'slug' => $post->slug])->willReturn('/demo2');
+
+        $this->postTable->findWithCategory($post->id)->willReturn($post);
 
         $response = call_user_func_array($this->action, [$request]);
         $this->assertEquals(301, $response->getStatusCode());
-        $this->assertEquals(['/demo2'], $response->getHeader('location'));
+        $this->assertEquals(['/demo2'], $response->getHeader('Location'));
     }
 
+    /**
+     * @throws \Framework\Database\NoRecordException
+     */
     public function testShowRender()
     {
         $post = $this->makePost(9, "azezae-azeazae");
         $request = (new ServerRequest('GET', '/'))
             ->withAttribute('id', $post->id)
             ->withAttribute('slug', $post->slug);
-        $this->postTable->find($post->id)->willReturn($post);
+
+        $this->postTable->findWithCategory($post->id)->willReturn($post);
+
         $this->renderer->render('@blog/show', ['post' => $post])->willReturn('');
 
         $response = call_user_func_array($this->action, [$request]);
-         //$this->assertEquals(200, $response->getStatusCode());
+        //$this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(true, true);
-    }*/
+    }
+
 }

@@ -25,7 +25,7 @@ class CrudAction
     /**
      * @var Table
      */
-    private $table;
+    protected $table;
 
     /**
      * @var FlashService
@@ -56,13 +56,13 @@ class CrudAction
         RendererInterface $renderer,
         Router $router,
         Table $table,
-        FlashService $flash /*ajout*/
+        FlashService $flash
     ) {         //encore ici, c'est possible de le mettre directement parce que PhpDI va y injecter
                 //de façon automatique la session nécessaire à la construction de FlashService
         $this->renderer = $renderer;
         $this->router = $router;
         $this->table = $table;
-        $this->flash = $flash; /*ajout*/
+        $this->flash = $flash;
     }
 
     public function __invoke(Request $request)
@@ -98,6 +98,7 @@ class CrudAction
      * Edit item
      * @param Request $request
      * @return ResponseInterface|string
+     * @throws \Framework\Database\NoRecordException
      */
     public function edit(Request $request)
     {
@@ -142,7 +143,7 @@ class CrudAction
             $errors = $validator->getErrors();
         }
 
-        //$params = $this->formParams(compact('item', 'errors'));
+        $params = $this->formParams(compact('item', 'errors'));
         return $this->renderer->render(
             $this->viewPath . '/create',
             $this->formParams(compact('item', 'errors'))
@@ -153,7 +154,7 @@ class CrudAction
      * @param Request $request
      * @return ResponseInterface
      */
-    public function delete(Request $request)//: ResponseInterface
+    public function delete(Request $request)
     {
         $this->table->delete($request->getAttribute('id'));
         return $this->redirect($this->routePrefix . '.index');

@@ -83,7 +83,7 @@ class FormExtension extends \Twig_Extension
         /*if ($error) {
             return "<small class=\"form-text text-muted\">{$error}</small>";
         }*/
-        /* /* */if ($error) {
+        if ($error) {
             return "<div class=\"invalid-feedback\">{$error}</div>";
         }
         // */
@@ -123,8 +123,8 @@ class FormExtension extends \Twig_Extension
     {
         $htmlOptions = array_reduce(array_keys($options), function (string $html, string $key) use ($options, $value) {
             $params = ['value' => $key, 'selected' => $key === $value];
-            return $html . '<option value="' .
-                substr($this->getHtmlFromArray($params), 7) . '>' . $options[$key] . '</option>';
+            return $html . '<option value="' . substr($this->getHtmlFromArray($params), 7) . '>'
+                . $options[$key] . '</option>';
         }, '');
         return "<select " . $this->getHtmlFromArray($attributes) . ">$htmlOptions</select>";
 

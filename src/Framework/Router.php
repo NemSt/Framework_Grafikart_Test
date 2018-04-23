@@ -5,6 +5,7 @@ namespace Framework;
 use Framework\Router\Route;
 use Psr\Http\Message\ServerRequestInterface;
 use Aura\Router\RouterContainer;
+use Aura\Router\Map;
 
 //use Zend\Expressive\Router\FastRouteRouter;
 //use Zend\Expressive\Router\Route as ZendRoute;
@@ -17,7 +18,13 @@ use Aura\Router\RouterContainer;
 class Router
 {
     //private $router;
+    /**
+     * @var Map
+     */
     private $map;
+    /**
+     * @var RouterContainer
+     */
     private $routerContainer;
     /**
      * Router constructor.
@@ -35,7 +42,7 @@ class Router
      * @param string|null $name
      * @param array|null $tokens
      */
-    public function get(string $path, $callable, ?string $name = null, ?array $tokens = [])
+    public function get(string $path, $callable, ?string $name = null, array $tokens = [])
     {
         $this->map->get($name, $path, $callable)->tokens($tokens);
     }
@@ -59,7 +66,7 @@ class Router
      * @param string|null $name
      * @param array|null $tokens
      */
-    public function post(string $path, $callable, ?string $name = null, ?array $tokens = [])
+    public function post(string $path, $callable, ?string $name = null, array $tokens = [])
     {
         if (!$name) {
             $name = '';
@@ -73,7 +80,7 @@ class Router
      * @param string|null $name
      * @param array|null $tokens
      */
-    public function delete(string $path, $callable, ?string $name = null, ?array $tokens = [])
+    public function delete(string $path, $callable, ?string $name = null, array $tokens = [])
     {
 
         $this->map->delete($name, $path, $callable)->tokens($tokens);
@@ -91,18 +98,11 @@ class Router
         $this->get("$prefixPath", $callable, "$prefixName.index");
         $this->get("$prefixPath/new", $callable, "$prefixName.create");
         $this->post("$prefixPath/new", $callable);
-        $this->get("$prefixPath/{id}", $callable, "$prefixName.edit", [
-            'id' => '[0-9]+'
-        ]);
-        $this->post("$prefixPath/{id}", $callable, null, [
-            'id' => '[0-9]+'
-        ]);
-        //la fonction delete ne fonctionne pas, je vais peut-être la changer pour juste empêcher l'affichage...
-        //ok réglé :-)
-        $this->delete("$prefixPath/{id}", $callable, "$prefixName.delete", [
-            'id' => '[0-9]+'
-        ]);
+        $this->get("$prefixPath/{id}", $callable, "$prefixName.edit", ['id' => '[0-9]+']);
+        $this->post("$prefixPath/{id}", $callable, null, ['id' => '[0-9]+']);
+        $this->delete("$prefixPath/{id}", $callable, "$prefixName.delete", ['id' => '[0-9]+']);
     }
+
     /**
      * @param ServerRequestInterface $request
      * @return Route|null
@@ -125,7 +125,7 @@ class Router
      * @param string $name
      * @param array $params
      * @param array $queryParams
-     * @return null|string
+     * @return string|null
      * @throws \Aura\Router\Exception\RouteNotFound
      */
     public function generateUri(string $name, array $params = [], array $queryParams = []): ?string

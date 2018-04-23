@@ -18,6 +18,7 @@ class RouterTest extends TestCase
      * @var Router
      */
     private $router;
+
     public function setUp()
     {
         $this->router = new Router();
@@ -26,28 +27,20 @@ class RouterTest extends TestCase
     public function testGetMethod()
     {
         $request = new ServerRequest('GET', '/blog');
-        $this->router->get('/blog', function () {
-            return 'hello';
-        }, 'blog');
-        //est-ce que ma fonction correspond à une des routes établies
+        $this->router->get('/blog', function () { return 'hello'; }, 'blog');
         $route = $this->router->match($request);
         $this->assertEquals('blog', $route->getName());
         $this->assertEquals('hello', call_user_func_array($route->getCallback(), [$request]));
     }
+
     public function testGetMethodIfURLDoesNotExists()
     {
         $request = new ServerRequest('GET', '/blog');
-        $this->router->get('/blogtd', function () {
-            return 'hello';
-        }, 'blog');
-        //est-ce que ma fonction correspond à une des routes établies
+        $this->router->get('/blogaze', function () { return 'hello'; }, 'blog');
         $route = $this->router->match($request);
         $this->assertEquals(null, $route);
     }
 
-    /**
-     *
-     */
     public function testGetMethodWithParameters()
     {
         $request = new ServerRequest('GET', '/blog/mon-slug-8');
@@ -102,13 +95,8 @@ class RouterTest extends TestCase
             return 'azezea';
         }, 'posts');
         $this->router->get(
-            "/blog/{slug}-{id}",
-            function () {
-                return 'hello';
-            },
-            'post.show',
-            ['slug' => '[a-z\-0-9]+', 'id' => '[0-9]+']
-        );
+            "/blog/{slug}-{id}", function () { return 'hello'; }, 'post.show',
+            ['slug' => '[a-z\-0-9]+', 'id' => '[0-9]+']);
         $uri = $this->router->generateUri(
             'post.show',
             ['slug' => 'mon-article', 'id' => 18],

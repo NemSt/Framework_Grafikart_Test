@@ -12,16 +12,14 @@ use Symfony\Component\Console\Output\NullOutput;
 class DatabaseTestCase extends TestCase
 {
 //tests avec SQLite pour tout ce qui a rapport avec la base de données
-    public function getPDO()
-    {
+    public function getPDO() {
         return new PDO('sqlite::memory:', null, null, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         ]);
     }
 
-    public function getManager(PDO $pdo)
-    {
+    public function getManager(PDO $pdo) {
         $configArray = require('phinx.php');
         $configArray['environments']['test'] = [
             'adapter'    => 'sqlite',

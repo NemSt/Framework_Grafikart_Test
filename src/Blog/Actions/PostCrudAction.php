@@ -2,7 +2,6 @@
 namespace App\Blog\Actions; /*identique mais marche retard en comm*/
 
 use App\Blog\Entity\Post;
-//use App\Blog\Table\CategoryTable;
 use App\Blog\Table\CategoryTable;
 use App\Blog\Table\PostTable;
 use Framework\Actions\CrudAction;
@@ -36,7 +35,7 @@ class PostCrudAction extends CrudAction
     }
 
     /**
-     * Prepare params for the view
+     * Prepare params for the form
      * @param array $params
      * @return array
      */
