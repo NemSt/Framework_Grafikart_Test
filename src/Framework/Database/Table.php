@@ -76,14 +76,6 @@ class Table
      */
     public function findAll(): array
     {
-        //$statement = $this->pdo->query("SELECT * FROM {$this->table}");
-            //->fetchAll(\PDO::FETCH_NUM);
-        //$list = [];
-        /*foreach ($results as $result) {
-            $list[$result[0]] = $result[1];
-        }
-        return $list;*/
-
         $query = $this->pdo->query("SELECT * FROM {$this->table}");
         if ($this->entity) {
             $query->setFetchMode(\PDO::FETCH_CLASS, $this->entity);
@@ -103,19 +95,6 @@ class Table
      */
     public function findBy(string $field, string $value)
     {
-        /*$query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE $field = ?");
-        $query->execute([$value]);
-        if ($this->entity) {
-            $query->setFetchMode(\PDO::FETCH_CLASS, $this->entity);
-        } else {
-            $query->setFetchMode(\PDO::FETCH_OBJ);
-        }
-        $record = $query->fetch();
-        if ($record === false) {
-            throw new NoRecordException();
-        }
-        return $record;*/
-        //return $query->fetch() ?: null;
         return $this->fetchOrFail("SELECT * FROM {$this->table} WHERE $field = ?", [$value]);
     }
 
@@ -128,23 +107,21 @@ class Table
      */
     public function find(int $id)
     {
-        //$query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = ?");
         return $this->fetchOrFail("SELECT * FROM {$this->table} WHERE id = ?", [$id]);
-        /*$query->execute([$id]);
-        if ($this->entity) {
-            $query->setFetchMode(\PDO::FETCH_CLASS, $this->entity);
-        }
-        $record = $query->fetch();
-        if ($record === false) {
-            throw new NoRecordException();
-        }
-        return $record;
-        //return $query->fetch() ?: null;
-        //return $this->fetchOrFail("SELECT * FROM {$this->table} WHERE id = ?", [$id]);*/
     }
 
     /**
-     * Update post in db
+     * Get the count of items
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->fetchColumn("SELECT COUNT(id) FROM {$this->table}");
+    }
+
+    /**
+     * Update item in db
      *
      * @param int $id
      * @param array $params
@@ -167,9 +144,6 @@ class Table
     public function insert(array $params): bool
     {
         $fields = array_keys($params);
-        /*ancien: $values = array_map(function ($field) {
-            return ':' . $field;
-        }, $fields);*/
         $values = join(', ', array_map(function ($field) {
             return ':' . $field;
         }, $fields));
@@ -252,5 +226,22 @@ class Table
             throw new NoRecordException();
         }
         return $record;
+    }
+
+    /**
+     * Fetch first column
+     *
+     * @param string $query
+     * @param array $params
+     * @return mixed
+     */
+    private function fetchColumn(string $query, array $params = [])
+    {
+        $query = $this->pdo->prepare($query);
+        $query->execute($params);
+        if ($this->entity) {
+            $query->setFetchMode(\PDO::FETCH_CLASS, $this->entity);
+        }
+        return $query->fetchColumn();
     }
 }

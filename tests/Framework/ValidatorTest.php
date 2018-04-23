@@ -50,7 +50,7 @@ class ValidatorTest extends DatabaseTestCase
     public function testSlugError()
     {
         $errors = $this->makeValidator([
-            'slug' => 'aze-aze-azeAze34',
+            'slug'  => 'aze-aze-azeAze34',
             'slug2' => 'aze-aze_azeAze34',
             'slug4' => 'aze-azeaze-',
             'slug3' => 'aze--aze-aze'])
@@ -81,7 +81,6 @@ class ValidatorTest extends DatabaseTestCase
         $this->assertCount(1, $this->makeValidator(['date' => '2012-41-12'])->dateTime('date')->getErrors());
         $this->assertCount(1, $this->makeValidator(['date' => '2013-02-29'])->dateTime('date')->getErrors());
     }
-
 
     public function testExists()
     {

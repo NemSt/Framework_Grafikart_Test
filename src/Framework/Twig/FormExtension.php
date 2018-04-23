@@ -32,23 +32,12 @@ class FormExtension extends \Twig_Extension
         $value = $this->convertValue($value);
         $attributes = [
             'class' => trim('form-control ' . ($options['class'] ?? '')),
-            'name' => $key,
-            'id' => $key
+            'name'  => $key,
+            'id'    => $key
         ];
         ($error) ? $attributes['class'] .=
             ' is-invalid' : $attributes['class'] .= ' is-valid';
 
-        /*$value = $this->convertValue($value);
-        $attributes = [
-            'class' => trim('form-control ' . ($options['class'] ?? '')),
-            'name'  => $key,
-            'id'    => $key
-        ];*/
-
-        /*if ($error) {
-            $class .= ' is-invalid';
-            $attributes['class'] .= ' is-invalid';
-        }*/
         if ($type === 'textarea') {
             $input = $this->textarea($value, $attributes);
         } elseif (array_key_exists('options', $options)) {
@@ -86,7 +75,6 @@ class FormExtension extends \Twig_Extension
         if ($error) {
             return "<div class=\"invalid-feedback\">{$error}</div>";
         }
-        // */
         return "";
     }
 
@@ -127,11 +115,6 @@ class FormExtension extends \Twig_Extension
                 . $options[$key] . '</option>';
         }, '');
         return "<select " . $this->getHtmlFromArray($attributes) . ">$htmlOptions</select>";
-
-        /*<select class="form-control is-valid" name="name" id="name">
-              <option value="1">Demo</option>
-              <option value="2" selected>Demo2</option>
-              </select>*/
     }
 
     /**
@@ -150,8 +133,5 @@ class FormExtension extends \Twig_Extension
             }
         }
         return implode(' ', $htmlParts);
-        /*return implode(' ', array_map(function ($key, $value) {
-            return "$key=\"$value\"";
-        }, array_keys($attributes), $attributes));*/
     }
 }

@@ -171,10 +171,6 @@ class CrudAction
         return array_filter($request->getParsedBody(), function ($key) {
             return in_array($key, []);
         }, ARRAY_FILTER_USE_KEY);
-
-        //return array_filter($request->getParsedBody(), function ($key) {
-            //return in_array($key, []);
-        //}, ARRAY_FILTER_USE_KEY);
     }
 
     /**

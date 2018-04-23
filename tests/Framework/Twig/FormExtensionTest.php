@@ -48,8 +48,7 @@ class FormExtensionTest extends TestCase
             'name',
             'demo',
             'Titre',
-            ['class' => 'demo']
-        );
+            ['class' => 'demo']);
         $this->assertSimilar("
             <div class=\"form-group\">
               <label for=\"name\">Titre</label>

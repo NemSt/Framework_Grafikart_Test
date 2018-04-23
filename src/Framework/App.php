@@ -32,15 +32,10 @@ class App
     public function __construct(ContainerInterface $container, array $modules = [])
     {
         $this->container = $container;
-        //$this->router = new Router();
-        //if (array_key_exists('renderer', $dependencies)) {
-            //$dependencies['renderer']->addGlobal('router', $this->router);
-        //}
         //il faut initialiser chacun des modules pour pouvoir les conserver, mais également connaître les
         //différentes routes qui vont appeler un même module (d'où le router)
         foreach ($modules as $module) {
-            //$this->modules[] = new $module($this->router, $dependencies['renderer']);
-            $this->modules[] = $container->get($module);//($this->router, $dependencies['renderer']);
+            $this->modules[] = $container->get($module);
         }
     }
 

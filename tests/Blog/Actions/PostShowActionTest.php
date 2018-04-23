@@ -26,7 +26,7 @@ class PostShowActionTest extends TestCase
     private $postTable;
 
     private $router;
-//show render show redirect
+
     public function setUp()
     {
         $this->renderer = $this->prophesize(RendererInterface::class);

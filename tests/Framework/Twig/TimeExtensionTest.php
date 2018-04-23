@@ -20,9 +20,8 @@ class TimeExtensionTest extends TestCase {
     {
         $date = new \DateTime();
         $format = 'd/m/Y';
-        $result = '<span 
-            class="timeago" datetime="' . $date->format(\DateTime::ISO8601) . '">' . $date->format($format) . '
-            </span>';
+        $result = '<span class="timeago" datetime="' .
+            $date->format(\DateTime::ISO8601) . '">' . $date->format($format) . '</span>';
         $this->assertEquals($result, $this->timeExtension->ago($date));
     }
 }

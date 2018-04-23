@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+
   {% if category %}
     <h1>Catégorie : {{ category.name }}{% if page > 1 %}, page {{ page }}{% endif %}</h1>
   {% else %}
@@ -16,9 +17,10 @@
   {% endif %}
   <div class="row">
     <div class="col-md-9">
-      <div class="row">
-        {% for row in posts | batch(4) %}
-          <div class="card-deck" style="padding-top: 5rem">
+
+      <div class="row" style="margin: 1rem">
+        {% for row in posts | batch(3) %}
+          <div class="card-deck" style="padding: 1rem">
             {% for post in row %}
               <div class="card">
                 {% if post.category_name %}
@@ -35,7 +37,7 @@
                       {% endfor %}
                   </div>
                 {% endif %}
-                <div class="card-block">
+                <div class="card-block" style="padding: 1rem">
                   <h4 class="card-title">
                     <a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}">
                       {{ post.name }}
@@ -64,7 +66,7 @@
       {% endif %}
     </div>
     <div class="col-md-3">
-      <ul class="list-group">
+      <ul class="list-group" style="padding-top: 5rem">
         {% for c in categories %}
           <li class="list-group-item {% if c.id == category.id %}active{% endif %}">
             <a style="color:inherit;" href="{{ path('blog.category', {slug: c.slug}) }}">{{ c.name }}</a>

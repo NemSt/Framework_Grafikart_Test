@@ -11,8 +11,6 @@ use Aura\Router\Map;
 //use Zend\Expressive\Router\Route as ZendRoute;
 
 /**
- * Class Router
- * @package Framework
  * Register and match routes
  */
 class Router
@@ -26,9 +24,7 @@ class Router
      * @var RouterContainer
      */
     private $routerContainer;
-    /**
-     * Router constructor.
-     */
+
     public function __construct()
     {
         $this->routerContainer = new RouterContainer();
@@ -46,19 +42,6 @@ class Router
     {
         $this->map->get($name, $path, $callable)->tokens($tokens);
     }
-
-    /*/**
-     * @param ServerRequestInterface $request
-     * @return Route|null
-     */
-   /* public function match(ServerRequestInterface $request): ?Route {
-        $result = $this->router->match($request);
-        return new Route(
-            $result->getMatchedRouteName(),
-            $result->getMatchedMiddleware(),
-            $result->getMatchedParams()
-        );
-    }*/
 
     /**
      * @param string $path
@@ -98,9 +81,9 @@ class Router
         $this->get("$prefixPath", $callable, "$prefixName.index");
         $this->get("$prefixPath/new", $callable, "$prefixName.create");
         $this->post("$prefixPath/new", $callable);
-        $this->get("$prefixPath/{id}", $callable, "$prefixName.edit", ['id' => '[0-9]+']);
-        $this->post("$prefixPath/{id}", $callable, null, ['id' => '[0-9]+']);
-        $this->delete("$prefixPath/{id}", $callable, "$prefixName.delete", ['id' => '[0-9]+']);
+        $this->get("$prefixPath/{id:\d+}", $callable, "$prefixName.edit");
+        $this->post("$prefixPath/{id:\d+}", $callable);
+        $this->delete("$prefixPath/{id:\d+}", $callable, "$prefixName.delete");
     }
 
     /**
