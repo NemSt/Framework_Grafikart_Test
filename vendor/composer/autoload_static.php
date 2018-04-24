@@ -8,8 +8,8 @@ class ComposerStaticInit84140d32bf4ad2365e81d5f89e97a2a8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '6f2c5977e422114bbaec553e7c77ee8b' => __DIR__ . '/..' . '/http-interop/response-sender/src/functions.php',
@@ -28,6 +28,7 @@ class ComposerStaticInit84140d32bf4ad2365e81d5f89e97a2a8
         ),
         'W' => 
         array (
+            'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
         ),
         'T' => 
@@ -56,9 +57,15 @@ class ComposerStaticInit84140d32bf4ad2365e81d5f89e97a2a8
             'PhpDocReader\\' => 13,
             'Phinx\\' => 6,
         ),
+        'M' => 
+        array (
+            'Middlewares\\Utils\\' => 18,
+            'Middlewares\\' => 12,
+        ),
         'I' => 
         array (
             'Invoker\\' => 8,
+            'Interop\\Http\\Factory\\' => 21,
         ),
         'G' => 
         array (
@@ -99,6 +106,10 @@ class ComposerStaticInit84140d32bf4ad2365e81d5f89e97a2a8
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-expressive-fastroute/src',
             1 => __DIR__ . '/..' . '/zendframework/zend-expressive-router/src',
+        ),
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -173,9 +184,21 @@ class ComposerStaticInit84140d32bf4ad2365e81d5f89e97a2a8
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
         ),
+        'Middlewares\\Utils\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/middlewares/utils/src',
+        ),
+        'Middlewares\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/middlewares/whoops/src',
+        ),
         'Invoker\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/invoker/src',
+        ),
+        'Interop\\Http\\Factory\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/http-interop/http-factory/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

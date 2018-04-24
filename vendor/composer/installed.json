@@ -159,6 +159,69 @@
         ]
     },
     {
+        "name": "filp/whoops",
+        "version": "2.1.14",
+        "version_normalized": "2.1.14.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/filp/whoops.git",
+            "reference": "c6081b8838686aa04f1e83ba7e91f78b7b2a23e6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/filp/whoops/zipball/c6081b8838686aa04f1e83ba7e91f78b7b2a23e6",
+            "reference": "c6081b8838686aa04f1e83ba7e91f78b7b2a23e6",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.5.9 || ^7.0",
+            "psr/log": "^1.0.1"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*",
+            "phpunit/phpunit": "^4.8.35 || ^5.7",
+            "symfony/var-dumper": "^2.6 || ^3.0"
+        },
+        "suggest": {
+            "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+            "whoops/soap": "Formats errors as SOAP responses"
+        },
+        "time": "2017-11-23T18:22:44+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Whoops\\": "src/Whoops/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Filipe Dobreira",
+                "homepage": "https://github.com/filp",
+                "role": "Developer"
+            }
+        ],
+        "description": "php error handling for cool kids",
+        "homepage": "https://filp.github.io/whoops/",
+        "keywords": [
+            "error",
+            "exception",
+            "handling",
+            "library",
+            "throwable",
+            "whoops"
+        ]
+    },
+    {
         "name": "fzaninotto/faker",
         "version": "v1.7.1",
         "version_normalized": "1.7.1.0",
@@ -278,6 +341,60 @@
         ]
     },
     {
+        "name": "http-interop/http-factory",
+        "version": "0.3.0",
+        "version_normalized": "0.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/http-interop/http-factory.git",
+            "reference": "c2587cc0a6f74987fefb5b8074acfd32c69a4b0f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/http-interop/http-factory/zipball/c2587cc0a6f74987fefb5b8074acfd32c69a4b0f",
+            "reference": "c2587cc0a6f74987fefb5b8074acfd32c69a4b0f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/http-message": "^1.0"
+        },
+        "time": "2017-03-24T14:48:51+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Interop\\Http\\Factory\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP message factories",
+        "keywords": [
+            "factory",
+            "http",
+            "message",
+            "psr",
+            "psr-17",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
         "name": "http-interop/response-sender",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -378,6 +495,109 @@
             "serializable",
             "serialize",
             "tokenizer"
+        ]
+    },
+    {
+        "name": "middlewares/utils",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/middlewares/utils.git",
+            "reference": "d36b0b8bee8548c45b34e64891b084742a640cf0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/middlewares/utils/zipball/d36b0b8bee8548c45b34e64891b084742a640cf0",
+            "reference": "d36b0b8bee8548c45b34e64891b084742a640cf0",
+            "shasum": ""
+        },
+        "require": {
+            "http-interop/http-factory": "^0.3",
+            "php": "^7.0",
+            "psr/container": "^1.0",
+            "psr/http-message": "^1.0",
+            "psr/http-server-middleware": "^1.0"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^2.0",
+            "guzzlehttp/psr7": "^1.3",
+            "phpunit/phpunit": "^6.0",
+            "slim/slim": "^3.5",
+            "squizlabs/php_codesniffer": "^3.0",
+            "zendframework/zend-diactoros": "^1.3"
+        },
+        "time": "2018-01-24T09:54:56+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Middlewares\\Utils\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Common utils to create PSR-15 middleware packages",
+        "homepage": "https://github.com/middlewares/utils",
+        "keywords": [
+            "PSR-11",
+            "http",
+            "middleware",
+            "psr-15",
+            "psr-7"
+        ]
+    },
+    {
+        "name": "middlewares/whoops",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/middlewares/whoops.git",
+            "reference": "1966af6f25debf865ead2fd9809e773ffd43005b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/middlewares/whoops/zipball/1966af6f25debf865ead2fd9809e773ffd43005b",
+            "reference": "1966af6f25debf865ead2fd9809e773ffd43005b",
+            "shasum": ""
+        },
+        "require": {
+            "filp/whoops": "^2.1",
+            "middlewares/utils": "^1.0",
+            "php": "^7.0",
+            "psr/http-server-middleware": "^1.0"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^2.0",
+            "phpunit/phpunit": "^6.0",
+            "squizlabs/php_codesniffer": "^3.0",
+            "zendframework/zend-diactoros": "^1.3"
+        },
+        "time": "2018-01-26T18:04:46+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Middlewares\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Middleware to use Whoops as error handler",
+        "homepage": "https://github.com/middlewares/whoops",
+        "keywords": [
+            "error",
+            "http",
+            "middleware",
+            "psr-15",
+            "psr-7",
+            "server",
+            "whoops"
         ]
     },
     {

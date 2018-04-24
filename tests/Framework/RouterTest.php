@@ -1,16 +1,16 @@
 <?php
 namespace Tests\Framework;
 
-use Framework\Router;
+//permet de regrouper les tests pour vérifier différentes parties de l'application
+//grâce à ces objets, il est vraiment beaucoup plus facile de créer les tests nécessaires
 
+use Framework\Router;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 
-//classe qui permet de regrouper les tests pour vérifier différentes parties de l'application
-//grâce à ces objets, il est vraiment beaucoup plus facile de créer les tests nécessaires
+class RouterTest extends TestCase {
 
-class RouterTest extends TestCase
-{
     /**
      * @var Router
      */

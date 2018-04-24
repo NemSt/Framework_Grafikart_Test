@@ -34,23 +34,15 @@ class BlogModule extends Module
         $container->get(RendererInterface::class)->addPath('blog', __DIR__ . '/views');
         $router = $container->get(Router::class);
         $router->get($container->get('blog.prefix'), PostIndexAction::class, 'blog.index');
-        $router->get(
-            "$blogPrefix/{slug}-{id}",
-            PostShowAction::class,
-            'blog.show',
+        $router->get("$blogPrefix/{slug}-{id}", PostShowAction::class,'blog.show',
             [
                 'slug' => '[a-z\-0-9]+',
                 'id' => '[0-9]+'
-            ]
-        );
-        $router->get(
-            "$blogPrefix/category/{slug}",
-            CategoryShowAction::class,
-            'blog.category',
+            ]);
+        $router->get("$blogPrefix/category/{slug}", CategoryShowAction::class, 'blog.category',
             [
                 'slug' => '[a-z\-0-9]+'
-            ]
-        );
+            ]);
         //si le module admin a été chargé, alors on va appeler le crud
         if ($container->has('admin.prefix')) {
             $prefix = $container->get('admin.prefix');
@@ -58,18 +50,4 @@ class BlogModule extends Module
             $router->crud("$prefix/categories", CategoryCrudAction::class, 'blog.category.admin');
         }
     }
-
-//les fonctions ci-dessous ont été déplacées pour des raisons de logique (actions)
-    /*public function index(ServerRequestInterface $request): string*//*ResponseInterface*/
-    /*{
-        return $this->renderer->render('@blog/index');
-    }
-
-    public function show(ServerRequestInterface $request): string
-    {
-
-        return $this->renderer->render('@blog/show', [
-            'slug' =>$request->getAttribute('slug')
-        ]);
-    }*/
 }
